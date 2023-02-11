@@ -14,7 +14,7 @@ function classNames(...classes: string[]) {
 }
 
 
-const currencies = ['CAD', 'USD', 'AUD', 'EUR', 'GBP']
+const currencies = ['USD', 'CAD', 'AUD', 'EUR', 'GBP']
 const navigation = {
     categories: [
         {
@@ -84,8 +84,6 @@ const navigation = {
 }
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
-
 
     return (
         <header className="relative z-10">
