@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import axios from '@/lib/axios'
 
 import Footer from '@/components/footer'
 import FeatureSection from '@/components/feature-section'
@@ -9,15 +8,7 @@ import CategorySection from '@/components/category-section'
 import Navbar from '@/components/navbar/navbar'
 import TrendingProductsSection from '@/components/trending-products-section'
 
-import { ProductInterface } from '@/interfaces'
-
-interface Props {
-    data: {
-        products: ProductInterface[]
-    }
-}
-
-export default function Home({ data }: Props) {
+export default function Home() {
     return (
         <>
             <Head>
@@ -60,7 +51,7 @@ export default function Home({ data }: Props) {
 
                 <main>
                     <CategorySection />
-                    <TrendingProductsSection data={data.products} />
+                    <TrendingProductsSection />
                     <FeaturedSection />
                     <CollectionSection />
                     <FeatureSection />
@@ -69,15 +60,4 @@ export default function Home({ data }: Props) {
             </div>
         </>
     )
-}
-
-export async function getServerSideProps() {
-    const res = await axios.get(`/trending-products`);
-    const data = res.data
-
-    return {
-        props: {
-            data
-        },
-    };
 }

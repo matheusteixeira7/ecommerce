@@ -9,7 +9,7 @@ import { StarIcon } from '@heroicons/react/20/solid'
 import Navbar from '@/components/navbar/navbar'
 import Footer from '@/components/footer'
 import { ProductInterface } from '@/interfaces'
-import axios from '@/lib/axios'
+import axios from '@/services/axios'
 
 interface Props {
     data: ProductInterface
@@ -282,9 +282,8 @@ export default function Product({ data }: Props) {
 }
 
 export async function getServerSideProps({ params }: { params: { id: string } }) {
-    const res = await axios.get(`/product/${params.id}`);
+    const res = await axios.get<Props>(`/api/product/${params.id}`);
     const data = res.data
-    console.log(data)
 
     return {
         props: {

@@ -1,15 +1,27 @@
-import { ProductInterface } from '@/interfaces'
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-interface Props {
-    data: ProductInterface[]
-}
+import axios from "@/services/axios";
+import { ProductInterface } from "@/interfaces";
 
-export default function TrendingProductsSection({ data }: Props) {
-    const products = data
+export default function TrendingProductsSection() {
+    const [products, setProducts] = useState<ProductInterface[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get('/api/trending-products');
+                const data = res.data
+                setProducts(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
-        <div className="bg-white">
+        <div className="bg-white" >
             <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
                 <div className="md:flex md:items-center md:justify-between">
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900">Trending products</h2>
@@ -40,7 +52,6 @@ export default function TrendingProductsSection({ data }: Props) {
                         </div>
                     ))}
                 </div>
-
                 <div className="mt-8 text-sm md:hidden">
                     <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
                         Shop the collection
